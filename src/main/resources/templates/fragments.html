@@ -13,19 +13,36 @@
 
 <body>
 
-    <div th:fragment="page-header" class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <a th:href="@{/}" class="navbar-brand">TechJobs</a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a th:href="@{/search}">Search</a></li>
-                    <li><a th:href="@{/list}">List</a></li>
-                </ul>
-            </div>
+<div th:fragment="page-header" class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a th:href="@{/}" class="navbar-brand">TechJobs</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a th:href="@{/search}">Search</a></li>
+                <li><a th:href="@{/list}">List</a></li>
+            </ul>
         </div>
     </div>
+</div>
 
 </body>
+
+
+<h3 th:fragment="results-tally" th:if="${jobs}" th:text="${jobs.size()} + ' Result(s)'"></h3>
+
+
+<table th:fragment="job-table" class="job-listing" th:each="job : ${jobs}">
+    <tbody>
+    <div th:if="${job} == 'null'"> -- </div>
+    <div th:if="${job} != 'null'"></div>
+
+    <tr th:each="jobEntry: ${job}">
+        <td class = "first-child" th:text="${#strings.capitalizeWords(jobEntry.key)}"></td>
+        <td class = "last-child"  th:text="${jobEntry.value}"></td>
+    </tr>
+
+    </tbody>
+</table>
 </html>
